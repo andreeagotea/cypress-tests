@@ -1,9 +1,11 @@
-const { defineConfig } = require("cypress");
+import { defineConfig } from 'cypress'
 
-module.exports = defineConfig({
+export default defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
+    supportFile: 'cypress/support/e2e.ts',
+    specPattern: 'cypress/e2e/**/*.cy.{js,ts}',
+    setupNodeEvents() {
       // implement node event listeners here
     },
   },
-});
+})
