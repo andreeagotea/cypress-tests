@@ -39,6 +39,12 @@ beforeEach(() => {
     cy.get('[data-test="sidenav-notifications"]').should('be.visible').and('have.text','Notifications')
     cy.get('[data-test="sidenav-notifications"]').should('be.visible').click()
     cy.url().should('include', '/notifications');
+
+    //Siderbar toggle
+    cy.get('[data-test="sidenav-toggle"]').should('be.visible')
+    cy.get('[data-test="sidenav-toggle"]').should('be.visible').click()
+    cy.get('[data-test="sidenav-home"]').should('not.be.visible').and('have.text','Home')
+    cy.get('[data-test="sidenav-user-settings"]').should('not.be.visible').and('have.text','My Account')    
   })
 
   it('Logout', () => {
