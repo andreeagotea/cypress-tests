@@ -1,56 +1,63 @@
 /// <reference types="cypress" />
 
+import {LOGIN} from "../support/testids/login"
+import { HOMEPAGE } from "../support/testids/homepage"
+
 describe('Test all the homepage elements', () => {
 
 beforeEach(() => {
   cy.visit('http://localhost:3000/')
-  cy.get('#username').should('be.visible').type('Arvilla_Hegmann')
-  cy.get('#password').should('be.visible').type('s3cret')
-  cy.get('[data-test="signin-submit"]').should('be.visible').click()
+  cy.get(LOGIN.USER_NAME_LOGIN).should('be.visible').type(Cypress.env('username'))
+  cy.get(LOGIN.PASSWORD_LOGIN).should('be.visible').type(Cypress.env('password'))
+  cy.get(LOGIN.LOGIN_BUTTON).should('be.visible').click()
 })
 
-  it('Verify sidebar', () => {
-    // Avatar & User Info
-    cy.get('.MuiAvatar-img').should('be.visible').and('have.attr', 'src','https://avatars.dicebear.com/api/human/GjWovtg2hr.svg')
-    cy.get('[data-test="sidenav-user-full-name"]').should('be.visible').and('have.text','Kristian B')
-    cy.get('[data-test="sidenav-username"]').should('be.visible').and('have.text','@Arvilla_Hegmann')
+  it('Verify tabs tabs from the header', () => {
+    cy.get(HOMEPAGE.HOME_SIDERBAR_ICON).should('be.visible')
+    cy.get(HOMEPAGE.HOME_SIDERBAR_TEXT).should('be.visible').and('have.text','Home').and('have.attr', 'href', '/')
+    cy.get(HOMEPAGE.HOME_SIDERBAR_TEXT).should('be.visible').click()
 
-    // Account Balance
-    cy.get(':nth-child(1) > .MuiTypography-subtitle2').should('be.visible').and('have.text','Account Balance')
-  
-    // Home
-    cy.get('[data-test="sidenav-home"] > .MuiListItemIcon-root').should('be.visible')
-    cy.get('[data-test="sidenav-home"]').should('be.visible').and('have.text','Home')
+    cy.get(HOMEPAGE.EVERYONE_TAB).should('be.visible').and('have.text','Everyone').and('have.attr', 'href', '/')
+    cy.get(HOMEPAGE.FRIENDS_TAB).should('be.visible').and('have.text','Friends').and('have.attr', 'href', '/contacts')
+    cy.get(HOMEPAGE.MINE_TAB).should('be.visible').and('have.text','Mine').and('have.attr', 'href', '/personal')
+})
 
-    // My Account
-    cy.get('[data-test="sidenav-user-settings"] > .MuiListItemIcon-root').should('be.visible')
-    cy.get('[data-test="sidenav-user-settings"]').should('be.visible').and('have.text','My Account')
-    cy.get('[data-test="sidenav-user-settings"]').should('be.visible').click()
-    cy.url().should('include', '/settings');
+it('Date picker - open and close', () => {
+  cy.get(HOMEPAGE.DATE_PICKER_FILTER).should('be.visible').click({force: true})
+  cy.get(HOMEPAGE.TITLE_DATE_PICKER).should('be.visible').and('have.text', 'Select a date...')
+  cy.get(HOMEPAGE.DAY_1_DATE_PICKER).should('be.visible').and('have.text', 'Sun')
+  cy.get(HOMEPAGE.DAY_4_DATE_PICKER).should('be.visible').and('have.text', 'Wed')
+  cy.get(HOMEPAGE.DAY_7_DATE_PICKER).should('be.visible').and('have.text', 'Sat')
+  cy.get('body').type('{esc}');
+  cy.get(HOMEPAGE.TITLE_DATE_PICKER).should('not.exist')
+})
 
-    // Bank Accounts
-    cy.get('[data-test="sidenav-bankaccounts"] > .MuiListItemIcon-root').should('be.visible')
-    cy.get('[data-test="sidenav-bankaccounts"]').should('be.visible').and('have.text','Bank Accounts')
-    cy.get('[data-test="sidenav-bankaccounts"]').should('be.visible').click()
-    cy.url().should('include', '/bankaccounts');
-   
-    // Notifications
-    cy.get('[data-test="sidenav-notifications"] > .MuiListItemIcon-root').should('be.visible')
-    cy.get('[data-test="sidenav-notifications"]').should('be.visible').and('have.text','Notifications')
-    cy.get('[data-test="sidenav-notifications"]').should('be.visible').click()
-    cy.url().should('include', '/notifications');
+it('Date picker - selecte a date', () => {
+  cy.get(HOMEPAGE.DATE_PICKER_FILTER).should('be.visible').click({force: true})
+  cy.get(HOMEPAGE.TITLE_DATE_PICKER).should('be.visible').and('have.text', 'Select a date...')
+  cy.get(HOMEPAGE.DAY_1_DATE_PICKER).should('be.visible').and('have.text', 'Sun')
+  cy.get(HOMEPAGE.SELECTED_DATE1_PICKER).contains('20').click({force: true})
+  cy.get(HOMEPAGE.TEXT_SELECTED_DATE_PICKER).should('be.visible')
+})
 
-    //Siderbar toggle
-    cy.get('[data-test="sidenav-toggle"]').should('be.visible')
-    cy.get('[data-test="sidenav-toggle"]').should('be.visible').click()
-    cy.get('[data-test="sidenav-home"]').should('not.be.visible').and('have.text','Home')
-    cy.get('[data-test="sidenav-user-settings"]').should('not.be.visible').and('have.text','My Account')    
-  })
+it('Date picker - select a date range', () => {
+  cy.get(HOMEPAGE.DATE_PICKER_FILTER).should('be.visible').click({force: true})
+  cy.get(HOMEPAGE.TITLE_DATE_PICKER).should('be.visible').and('have.text', 'Select a date...')
+  cy.get(HOMEPAGE.DAY_1_DATE_PICKER).should('be.visible').and('have.text', 'Sun')
+  cy.get(HOMEPAGE.SELECTED_DATE1_PICKER).contains('20').click({force: true})
+  cy.get(HOMEPAGE.SELECTED_DATE2_PICKER).contains('25').click({force: true})
+  cy.get(HOMEPAGE.TEXT_SELECTED_DATE_PICKER).should('be.visible')
+  cy.get(HOMEPAGE.VERIFY_SELECTED_DATE_RANGE_PICKER).should('be.visible')
+})
 
-  it('Logout', () => {
-    cy.get('[data-test="sidenav-signout"] > .MuiListItemIcon-root').should('be.visible')
-    cy.get('[data-test="sidenav-signout"]').should('be.visible').and('have.text','Logout')
-    cy.get('[data-test="sidenav-signout"]').should('be.visible').click()
-    cy.url().should('include', '/signin');
+it('Date picker - select a date range and clear selected range', () => {
+  cy.get(HOMEPAGE.DATE_PICKER_FILTER).should('be.visible').click({force: true})
+  cy.get(HOMEPAGE.TITLE_DATE_PICKER).should('be.visible').and('have.text', 'Select a date...')
+  cy.get(HOMEPAGE.DAY_1_DATE_PICKER).should('be.visible').and('have.text', 'Sun')
+  cy.get(HOMEPAGE.SELECTED_DATE1_PICKER).contains('20').click({force: true})
+  cy.get(HOMEPAGE.SELECTED_DATE2_PICKER).contains('25').click({force: true})
+  cy.get(HOMEPAGE.TEXT_SELECTED_DATE_PICKER).should('be.visible')
+  cy.get(HOMEPAGE.VERIFY_SELECTED_DATE_RANGE_PICKER).should('be.visible')
+  cy.get(HOMEPAGE.CLEAR_BUTTON_DATE_PICKER).should('be.visible').click({force: true})
 })
 })
