@@ -1,0 +1,11 @@
+{
+    "bankAccounts": "Bank Accounts",
+    "createBankAccount": "Create Bank Account",
+    "bankName": "Test1",
+    "routingNumber": "123456789",
+    "accountNumber": "987654321",
+    "h2": "h2",
+    "p": "p",
+    "endpointBankAccounts": "/bankaccounts"
+  }
+  

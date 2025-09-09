@@ -1,0 +1,17 @@
+{
+    "name": "Using fixtures to represent data",
+    "home": "Home",
+    "everyone": "Everyone",
+    "friends": "Friends",
+    "mine": "Mine",
+    "selectDate": "Select a date...",
+    "sun": "Sun",
+    "wed": "Wed",
+    "sat": "Sat",
+    "date1DatePicker": "20",
+    "date2DatePicker": "25",
+    "endpointHome": "/",
+    "endpointFriends": "/contacts",
+    "endpointMine": "/personal"
+  }
+  

@@ -1,0 +1,14 @@
+{
+    "myAccount": "My Account",
+    "firstName": "Andreea",
+    "lastName": "Gotea",
+    "email": "goteaandreea@gmail.com",
+    "invalidEmail": "gagagag",
+    "phoneNumber": "0765432345",
+    "invalidPhoneNumber": "shshshshs",
+    "errorMessageFirstNameField": "Enter a first name",
+    "errorMessageEmailField": "Must contain a valid email address",
+    "errorMessagePhoneField": "Phone number is not valid",
+    "endpointMyAccount": "/settings"
+  }
+  

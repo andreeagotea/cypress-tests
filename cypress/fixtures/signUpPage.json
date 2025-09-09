@@ -1,0 +1,11 @@
+{
+    "firstName": "Abc",
+    "lastName": "Def",
+    "userName": "abc.def",
+    "password": "1234",
+    "confirmationPassword": "1234",
+    "signUpButton": "Sign Up",
+    "signUpTitle": "Sign Up",
+    "createAccountTexts": "Don't have an account? Sign Up",
+    "signUpEndpoint": "/signup"
+}

@@ -1,23 +1,25 @@
 /// <reference types="cypress" />
 import {LOGIN} from "../support/testids/login"
+import { SIGN_UP } from "../support/testids/signUp"
 
 
 beforeEach(() => {
+  cy.fixture('signUpPage').as('signUp')
   cy.visit('http://localhost:3000/')
 })
 
-  it.only('Access the Sign Up page and fill in the fields to create a new account', () => {
-    cy.get('[data-test="signup"]').should('be.visible').and('have.attr','href','/signup').and('have.text',"Don't have an account? Sign Up")
-    cy.get('[data-test="signup"]').should('be.visible').click()
+  it('Access the Sign Up page and fill in the fields to create a new account', function() {
+    cy.get(SIGN_UP.SIGN_UP_TEXT).should('be.visible').and('have.attr','href', this.signUp.signUpEndpoint).and('have.text', this.signUp.createAccountTexts)
+    cy.get(SIGN_UP.SIGN_UP_TEXT).should('be.visible').click()
 
-    cy.get('[data-test="signup-title"]').should('be.visible').and('have.text', "Sign Up")
+    cy.get(SIGN_UP.SIGN_UP_TITLE).should('be.visible').and('have.text', this.signUp.signUpTitle)
 
-    cy.get('#firstName').should('be.visible').type('Abc')
-    cy.get('#lastName').should('be.visible').type('Def')
-    cy.get('#username').should('be.visible').type('abc.def')
-    cy.get('#password').should('be.visible').type('1234')
-    cy.get('#confirmPassword').should('be.visible').type('1234')
-    cy.get('[data-test="signup-submit"]').should('be.visible').and('have.text', 'Sign Up').click()
+    cy.get(SIGN_UP.FIRST_NAME).should('be.visible').clear().type(this.signUp.firstName)
+    cy.get(SIGN_UP.LAST_NAME).should('be.visible').clear().type(this.signUp.lastName)
+    cy.get(SIGN_UP.USER_NAME).should('be.visible').clear().type(this.signUp.userName)
+    cy.get(SIGN_UP.PASSWORD).should('be.visible').clear().type(this.signUp.password)
+    cy.get(SIGN_UP.CONFIRM_PASSWORD).should('be.visible').clear().type(this.signUp.confirmationPassword)
+    cy.get(SIGN_UP.SUBMIT_BUTTON).should('be.visible').and('have.text', this.signUp.signUpButton).click()
 
     cy.get(LOGIN.USER_NAME_LOGIN).should('be.visible').type(Cypress.env('username_signup'))
     cy.get(LOGIN.PASSWORD_LOGIN).should('be.visible').type(Cypress.env('password_signup'))

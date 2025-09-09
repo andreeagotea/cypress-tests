@@ -18,8 +18,8 @@
     ],
     "exclude": [
       "cypress.config.ts",
-      "cypress",
-      "node_modules"
+      "node_modules",
+      "node_modules/cypress/types/mocha/index.d.ts"
     ]
   }
   
