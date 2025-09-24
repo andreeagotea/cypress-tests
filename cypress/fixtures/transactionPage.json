@@ -1,0 +1,9 @@
+{
+    "input": "input",
+    "amount": "100",
+    "note": "test",
+    "p": "p",
+    "amountEmptyField": "Please enter a valid amount",
+    "noteEmptyField": "Please enter a note",
+    "transactionSubmittedMessage": "Transaction Submitted!"
+}

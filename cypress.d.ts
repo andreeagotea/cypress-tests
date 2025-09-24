@@ -11,3 +11,10 @@ declare namespace Cypress {
       loginByAPI(username?: string, password?: string): Chainable<any>
     }
   }
+
+  declare namespace Cypress {
+    interface Chainable {
+        dataCy(value: string): Chainable<JQuery<HTMLElement>>
+        createNewTransaction(amount: string, note: string, input: string, endpointNewTransaction: string): Chainable<void>
+    }
+  }

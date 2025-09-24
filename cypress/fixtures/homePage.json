@@ -12,6 +12,9 @@
     "date2DatePicker": "25",
     "endpointHome": "/",
     "endpointFriends": "/contacts",
-    "endpointMine": "/personal"
+    "endpointMine": "/personal",
+    "initialAmount": "Amount: $0 - $1,000",
+    "afterAmount": "Amount: $0 - $500",
+    "afterAmountPxTest": "Amount: $0 - $550"
   }
   

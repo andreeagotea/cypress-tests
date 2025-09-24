@@ -5,10 +5,14 @@ import { BANK_ACCOUNTS } from "../support/testids/bankAccounts"
 
 beforeEach(() => {
   cy.fixture('bankAccountsPage').as('bank');
-  cy.loginByAPI('Arvilla_Hegmann', 's3cret')
+  // cy.loginByAPI('Arvilla_Hegmann', 's3cret')
+  // cy.visit('http://localhost:3000/')
+  // // cy.intercept('POST', '/graphql').as('getHomePage');
+  // cy.wait('@getHomePage').its('response.statusCode').should('eq', 200);
   cy.visit('http://localhost:3000/')
-//   cy.intercept('POST', '/graphql').as('getHomePage');
-//   cy.wait('@getHomePage').its('response.statusCode').should('eq', 200);
+  cy.get(LOGIN.USER_NAME_LOGIN).should('be.visible').type(Cypress.env('username'))
+  cy.get(LOGIN.PASSWORD_LOGIN).should('be.visible').type(Cypress.env('password'))
+  cy.get(LOGIN.LOGIN_BUTTON).should('be.visible').click()
 })
 
   it('Access Bank Accounts page', function() {
